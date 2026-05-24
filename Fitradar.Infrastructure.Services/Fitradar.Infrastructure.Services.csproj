@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Atlassian.SDK" />
+    <PackageReference Include="AutoMapper" />
+    <PackageReference Include="Azure.Search.Documents" />
+    <PackageReference Include="FileHelpers" />
+    <PackageReference Include="FirebaseAdmin" />
+    <PackageReference Include="FirebaseNet" />
+    <PackageReference Include="Google.Cloud.Storage.V1" />
+    <PackageReference Include="Ical.Net" />
+    <PackageReference Include="itext7" />
+    <PackageReference Include="itext7.bouncy-castle-fips-adapter" />
+    <PackageReference Include="itext7.pdfhtml" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" />
+    <PackageReference Include="Microsoft.Azure.Core.Spatial" />
+    <PackageReference Include="Microsoft.Extensions.Http" />
+    <PackageReference Include="Microsoft.Extensions.Logging" />
+    <PackageReference Include="Microsoft.Extensions.Options" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
+    <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" />
+    <PackageReference Include="Microsoft.Spatial" />
+    <PackageReference Include="Polly" />
+    <PackageReference Include="Portable.BouncyCastle" />
+    <PackageReference Include="Sendgrid" />
+    <PackageReference Include="Stripe.net" />
+    <PackageReference Include="Stubble.Core" />
+    <PackageReference Include="Stubble.Extensions.JsonNet" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
+    <PackageReference Include="System.Net.Http" />
+    <PackageReference Include="Twilio" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Fitradar.Application\Fitradar.Application.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Apis.Auth" />
+    <PackageReference Include="Microsoft.Extensions.Http" />
+    <PackageReference Include="Polly.Core" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Fitradar.Application.Common\Fitradar.Application.Common.csproj" />
+    <ProjectReference Include="..\Fitradar.Application.Contracts\Fitradar.Application.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="UseCases\Inbox\Services\" />
+    <Folder Include="UseCases\Reactions\DomainEventHandlers\" />
+  </ItemGroup>
+
+</Project>
