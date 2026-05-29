@@ -54,6 +54,10 @@
     <PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="8.0.0" />
     <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <!-- Test packages -->
+    <PackageVersion Include="coverlet.collector" Version="6.0.0" />
+    <PackageVersion Include="xunit" Version="2.9.0" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2" />
     <PackageVersion Include="Microsoft.Spatial" Version="8.0.2" />
     <PackageVersion Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
     <PackageVersion Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.5" />

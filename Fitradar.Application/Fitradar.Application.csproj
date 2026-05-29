@@ -5,14 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CSharpFunctionalExtensions" />
     <PackageReference Include="Google.Apis.Auth" />
+    <PackageReference Include="MediatR" />
     <PackageReference Include="Microsoft.Extensions.Http" />
     <PackageReference Include="Polly.Core" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Fitradar.Application.Common\Fitradar.Application.Common.csproj" />
-    <ProjectReference Include="..\Fitradar.Application.Contracts\Fitradar.Application.Contracts.csproj" />
   </ItemGroup>
 
   <ItemGroup>
