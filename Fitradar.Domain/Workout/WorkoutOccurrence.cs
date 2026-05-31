@@ -9,20 +9,15 @@ namespace Fitradar.Domain.Workout
 {
     public enum EventStatus { Upcoming, Ongoing, Finished }
 
-    public sealed class SportEventInstance : EventSourcedEntity, IAggregateRoot
+    public sealed class WorkoutOccurrence : EventSourcedEntity
     {
-        private static readonly UpdatedEventValidator _updateValidator = new();
+        private static readonly UpdatedWorkoutSeriesValidator _updateValidator = new();
 
         private readonly TimeProvider _clock;
         private readonly DateTime _initStartTime;
         private readonly DateTime _initEndTime;
 
-        private DateTime _startTime;
-        private DateTime _endTime;
-        private bool _isCancelled;
-
-        internal SportEventInstance(
-            long id,
+        internal WorkoutOccurrence(
             Guid publicId,
             Guid sportEventId,
             DateTime startTime,
@@ -32,21 +27,17 @@ namespace Fitradar.Domain.Workout
             TimeProvider clock)
         {
             _clock = clock ?? TimeProvider.System;
-            Id = id;
             PublicId = publicId;
             SportEventId = sportEventId;
-            _startTime = startTime;
+            StartTime = startTime;
             _initStartTime = startTime;
-            _endTime = endTime;
+            EndTime = endTime;
             _initEndTime = endTime;
-            _isCancelled = isCancelled;
+            IsCancelled = isCancelled;
             NumberOfBookedTickets = numberOfBookedTickets;
         }
 
-        public long Id { get; } 
-        public Guid PublicId { get; }
         public Guid SportEventId { get; }
-
         public DateTime StartTime { get; private set; }
         public DateTime EndTime { get; private set; }
         public int NumberOfBookedTickets { get; private set; }
@@ -71,19 +62,19 @@ namespace Fitradar.Domain.Workout
         public void Reschedule(DateTime newStart, DateTime newEnd)
         {
             // Guard: cannot reschedule a cancelled instance
-            if (_isCancelled)
+            if (IsCancelled)
                 throw new InvalidOperationException("Cannot reschedule a cancelled event instance.");
 
             StartTime = newStart;
             EndTime = newEnd;
 
             if (newStart != _initStartTime || newEnd != _initEndTime)
-                AddPendingEvent(new SportEventInstanceUpdated(this));
+                AddPendingEvent(new WorkoutOccurrenceUpdated(this));
         }
 
         public ValidationResult CanUpdate(TimePeriod timeSlot, Money price, int numberOfTickets)
         {
-            var context = new SportEventValidationContext
+            var context = new WorkoutSeriesValidationContext
             {
                 TimeSlots = [timeSlot],
                 Price = price.Amount is null or 0 ? null : price,

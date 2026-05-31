@@ -26,7 +26,7 @@ public class SportEventResolutionBehavior<TRequest, TResponse> : IPipelineBehavi
 
             if (!exists)
             {
-                throw new NotFoundException(nameof(SportEventInstance), request.SportEventInstancePublicId);
+                throw new NotFoundException(nameof(WorkoutOccurrence), request.SportEventInstancePublicId);
             }
 
             return await next();

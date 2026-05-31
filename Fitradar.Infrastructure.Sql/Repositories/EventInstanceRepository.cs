@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Fitradar.Infrastructure.Sql.Repositories
 {
-    public class EventInstanceRepository : EventSourcedRepository<SportEventInstance>, IEventInstanceRepository
+    public class EventInstanceRepository : EventSourcedRepository<WorkoutOccurrence>, IEventInstanceRepository
     {
         private readonly IMapper _mapper;
 
@@ -26,15 +26,15 @@ namespace Fitradar.Infrastructure.Sql.Repositories
         }
 
         public async Task UpdateAsync(
-            SportEventInstance updatedSportEventInstance,
+            WorkoutOccurrence updatedWorkoutOccurrence,
             CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            ArgumentNullException.ThrowIfNull(updatedSportEventInstance);
+            ArgumentNullException.ThrowIfNull(updatedWorkoutOccurrence);
 
-            var storedDbModel = DbContext.Set<SportEventInstanceDbModel>().Find(updatedSportEventInstance.Id);
-            storedDbModel.SportEventId = updatedSportEventInstance.SportEventId;
+            var storedDbModel = DbContext.Set<SportEventInstanceDbModel>().Find(updatedWorkoutOccurrence.Id);
+            storedDbModel.SportEventId = updatedWorkoutOccurrence.SportEventId;
 
             var entityTracked = DbContext.Entry(storedDbModel);
             var previousState = entityTracked.State;
@@ -44,27 +44,27 @@ namespace Fitradar.Infrastructure.Sql.Repositories
                 DbContext.Entry(storedDbModel).State = EntityState.Added;
             }
 
-            base.UnpublishedEntities.Add(updatedSportEventInstance);
+            base.UnpublishedEntities.Add(updatedWorkoutOccurrence);
 
            await base.SaveAndPublishEventsAsync();
         }
 
         public async Task DeleteAsync(
-            SportEventInstance sportEventInstance,
+            WorkoutOccurrence workoutOccurrence,
             bool commitChanges = true,
             CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            if (sportEventInstance == null)
+            if (workoutOccurrence == null)
             {
-                throw new ArgumentNullException(nameof(SportEventInstance));
+                throw new ArgumentNullException(nameof(WorkoutOccurrence));
             }
 
-            sportEventInstance.AddPendingEvent(new SportEventInstanceDeleted(sportEventInstance));
-            base.UnpublishedEntities.Add(sportEventInstance);
+            workoutOccurrence.AddPendingEvent(new WorkoutOccurrenceDeleted(workoutOccurrence));
+            base.UnpublishedEntities.Add(workoutOccurrence);
 
-            var dbModel = await DbContext.SportEventInstances.SingleOrDefaultAsync(si => si.Id == sportEventInstance.Id);
+            var dbModel = await DbContext.SportEventInstances.SingleOrDefaultAsync(si => si.Id == workoutOccurrence.Id);
 
 
             await base.PublishEventsAndSaveAsync(() => DbContext.SportEventInstances.Remove(dbModel));

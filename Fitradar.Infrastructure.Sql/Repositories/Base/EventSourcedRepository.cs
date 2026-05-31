@@ -97,9 +97,16 @@ namespace Fitradar.Infrastructure.Sql.Repositories.Base
         // any new entities enqueued by event handlers are not lost.
         private async Task DispatchPendingEventsAsync()
         {
-            var eventsToPublish = UnpublishedEntities
-                .SelectMany(e => e.Events)
+            var entitiesToFlush = UnpublishedEntities.ToList();
+
+            var eventsToPublish = entitiesToFlush
+                .SelectMany(e => e.DomainEvents)
                 .ToList();
+
+            foreach (var entity in entitiesToFlush)
+            {
+                entity.ClearPendingEvents();
+            }
 
             UnpublishedEntities.Clear();
 

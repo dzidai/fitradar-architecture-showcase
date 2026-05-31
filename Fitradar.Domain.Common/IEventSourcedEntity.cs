@@ -1,9 +1,10 @@
 using Fitradar.Domain.Events;
 
-namespace Fitradar.Domain.Common
+namespace Fitradar.Domain.Common;
+
+public interface IEventSourcedEntity
 {
-    public interface IEventSourcedEntity
-    {
-        IEnumerable<IDomainEvent> Events { get; }
-    }
+    IEnumerable<IDomainEvent> DomainEvents { get; }
+
+    void ClearPendingEvents();
 }

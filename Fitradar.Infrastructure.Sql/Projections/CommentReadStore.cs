@@ -38,7 +38,7 @@ namespace Fitradar.Infrastructure.Sql.Projections
 
                 if (archivedSportEvent == null)
                 {
-                    throw new NotFoundException(nameof(Domain.Workout.SportEventInstance), comment.SportEventInstancePublicId);
+                    throw new NotFoundException(nameof(Domain.Workout.WorkoutOccurrence), comment.SportEventInstancePublicId);
                 }
 
                 archivedSportEventId = comment.SportEventInstancePublicId;
